@@ -1,3 +1,5 @@
+![ClearSky Project Banner](banner.png)
+
 # ClearSky: AI-Powered Methane Plume Detection
 
 **Team:** Geo-Intelligence  
@@ -47,12 +49,53 @@ Our process is designed for scalability and is implemented entirely within a sin
 
 *(See the diagram below for a visual representation of the workflow.)*
 
-1.  **Data Ingestion:** Download specified EMIT L1B radiance granules.
-2.  **Parallel Inference:** Process each granule independently through both the STARCOP and Project-Eucalyptus models to generate initial prediction masks.
-3.  **Georeferencing:** Align all prediction masks to a common Coordinate Reference System (CRS) to ensure spatial consistency.
-4.  **Aggregation & Ensembling:** Combine the aligned masks from all models and all satellite passes. The aggregated map reflects both the average predicted signal and the number of observations (flyovers).
-5.  **Confidence Scoring:** Generate a final confidence score by weighting the mean signal by the observation count. Areas with consistent detections across multiple passes and models receive the highest confidence scores.
-6.  **Visualization & Export:** Produce an interactive HTML map (using Folium) and a compressed GeoTIFF file, providing an intuitive and shareable final product for analysis.
+```mermaid
+graph TD
+    subgraph "Input Data"
+        G1[EMIT Granule 1<br>(Pass 1)]
+        G2[EMIT Granule 2<br>(Pass 2)]
+        G3[...]
+    end
+
+    subgraph "Parallel Model Inference"
+        G1 --> M1A(STARCOP Model)
+        G1 --> M1B(Project-Eucalyptus Model)
+        
+        G2 --> M2A(STARCOP Model)
+        G2 --> M2B(Project-Eucalyptus Model)
+
+        M1A --> P1A[Prediction Mask A1]
+        M1B --> P1B[Prediction Mask B1]
+        
+        M2A --> P2A[Prediction Mask A2]
+        M2B --> P2B[Prediction Mask B2]
+    end
+
+    subgraph "Geospatial Alignment & Aggregation"
+        P1A --> AGG(Common Geographic Grid)
+        P1B --> AGG
+        P2A --> AGG
+        P2B --> AGG
+    end
+
+    AGG --> MEAN[Calculate Mean Signal Map<br>(Average of all predictions)]
+    AGG --> COUNT[Calculate Observation Count Map<br>(How many times each pixel was seen)]
+
+    subgraph "Final Confidence Scoring"
+        MEAN --> FCS{Final Confidence Score<br><br><i>Score = f(Mean Signal, Observation Count)</i>}
+        COUNT --> FCS
+    end
+
+    subgraph "Outputs"
+        FCS --> VIZ(Interactive HTML Map)
+        FCS --> EXPORT(Compressed GeoTIFF)
+    end
+
+    style G1 fill:#D5F5E3
+    style G2 fill:#D5F5E3
+    style VIZ fill:#A9DFBF
+    style EXPORT fill:#A9DFBF
+```
 
 ## 5. How to Use This Notebook
 
