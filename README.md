@@ -10,6 +10,7 @@
 [![Status](https://img.shields.io/badge/Status-Proof--of--Concept-green)](https://www.rdia.gov.sa/)
 [![Technology](https://img.shields.io/badge/Data-EMIT%20Hyperspectral-blue)](https://earth.jpl.nasa.gov/emit/)
 [![Models](https://img.shields.io/badge/Models-STARCOP%20%7C%20Project--Eucalyptus-orange)]()
+[![Demo](https://img.shields.io/badge/Live%20Demo-WebApp-brightgreen)](https://clearsky-ai.vercel.app/)
 
 </div>
 
@@ -49,53 +50,9 @@ Our process is designed for scalability and is implemented entirely within a sin
 
 *(See the diagram below for a visual representation of the workflow.)*
 
-```mermaid
-graph TD
-    subgraph "Input Data"
-        G1[EMIT Granule 1<br>(Pass 1)]
-        G2[EMIT Granule 2<br>(Pass 2)]
-        G3[...]
-    end
-
-    subgraph "Parallel Model Inference"
-        G1 --> M1A(STARCOP Model)
-        G1 --> M1B(Project-Eucalyptus Model)
-        
-        G2 --> M2A(STARCOP Model)
-        G2 --> M2B(Project-Eucalyptus Model)
-
-        M1A --> P1A[Prediction Mask A1]
-        M1B --> P1B[Prediction Mask B1]
-        
-        M2A --> P2A[Prediction Mask A2]
-        M2B --> P2B[Prediction Mask B2]
-    end
-
-    subgraph "Geospatial Alignment & Aggregation"
-        P1A --> AGG(Common Geographic Grid)
-        P1B --> AGG
-        P2A --> AGG
-        P2B --> AGG
-    end
-
-    AGG --> MEAN[Calculate Mean Signal Map<br>(Average of all predictions)]
-    AGG --> COUNT[Calculate Observation Count Map<br>(How many times each pixel was seen)]
-
-    subgraph "Final Confidence Scoring"
-        MEAN --> FCS{Final Confidence Score<br><br><i>Score = f(Mean Signal, Observation Count)</i>}
-        COUNT --> FCS
-    end
-
-    subgraph "Outputs"
-        FCS --> VIZ(Interactive HTML Map)
-        FCS --> EXPORT(Compressed GeoTIFF)
-    end
-
-    style G1 fill:#D5F5E3
-    style G2 fill:#D5F5E3
-    style VIZ fill:#A9DFBF
-    style EXPORT fill:#A9DFBF
-```
+<div align="center">
+  <img src="model.png" alt="Ensemble Model Workflow" width="50%"/>
+</div>
 
 ## 5. How to Use This Notebook
 
