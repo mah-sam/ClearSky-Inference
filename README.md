@@ -65,8 +65,7 @@ It's worth noting that since there is no data available for validation in the da
     -   Run predictions using STARCOP.
     -   Run predictions using Project-Eucalyptus.
     -   (Final Cells) Aggregate the results into a single confidence map.
-4.  **Output:** The final output will be an interactive map (`methane_detection_map_popup.html`) and a GeoTIFF file (`final_methane_confidence_map_compressed.tif`) saved in the notebook's output directory. 
-
+      
 ## 6. Technology Stack
 
 -   **Core Libraries:** PyTorch, Rasterio, Geopandas, Xarray
