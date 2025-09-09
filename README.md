@@ -54,6 +54,8 @@ Our process is designed for scalability and is implemented entirely within a sin
   <img src="model.png" alt="Ensemble Model Workflow" width="50%"/>
 </div>
 
+It's worth noting that since there is no data available for validation in the data we have from the satellite (EMIT), it's difficult to know the accuarcy of our approach. However, we surmise that ensembling multiple models to get their agreement-score over an area allows us to pinpoint areas of methane with high probability.
+
 ## 5. How to Use This Notebook
 
 1.  **Setup:** The initial cells install all required dependencies, including `STARCOP` and `georeader`.
@@ -63,7 +65,7 @@ Our process is designed for scalability and is implemented entirely within a sin
     -   Run predictions using STARCOP.
     -   Run predictions using Project-Eucalyptus.
     -   (Final Cells) Aggregate the results into a single confidence map.
-4.  **Output:** The final output will be an interactive map (`methane_detection_map_popup.html`) and a GeoTIFF file (`final_methane_confidence_map_compressed.tif`) saved in the notebook's output directory.
+4.  **Output:** The final output will be an interactive map (`methane_detection_map_popup.html`) and a GeoTIFF file (`final_methane_confidence_map_compressed.tif`) saved in the notebook's output directory. 
 
 ## 6. Technology Stack
 
